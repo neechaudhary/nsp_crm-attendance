@@ -8,29 +8,30 @@ import nation_express_logo from "./../assets/nation_express_logo.png"
 
 //icons
 import { MdDashboard } from 'react-icons/md'
+import {BsFillPersonPlusFill} from 'react-icons/bs'
 import { AiTwotoneCalendar } from 'react-icons/ai'
 import {IoLogOutSharp} from "react-icons/io5"
 import { GiFireworkRocket } from "react-icons/gi"
 import { FaProjectDiagram } from 'react-icons/fa'
 import { ImTicket } from "react-icons/im"
 import { MdSick } from "react-icons/md"
-import { API } from './Constant'
 import axios from 'axios'
+import { API } from './Constant'
 
-const Menu = ({ children }) => {
+const Admin_menu = ({ children }) => {
     const [emp_name, setemp_name]=useState("")
   const [dept, setdept]=useState("")
   const [m_name, setm_name]=useState("")
 
     const getUserDetails= (e) =>{
-        axios.get(`${API}/leave-form/real-user-token`,{
+        axios.get(`${API}/leave-form/user-token`,{
           headers:{
             "Content-Type":"application/json",
             "token": localStorage.getItem("token")
       
           }
         }).then((res)=>{
-          console.log(res.data)
+        //   console.log(res.data)
           setemp_name(res.data.data.name)
           setdept(res.data.data.department)
           setm_name(res.data.data.manager)
@@ -74,7 +75,7 @@ const Menu = ({ children }) => {
                     </div>
                     <div className='pt-[20px]'>
                         <ul className=''>
-                            <Link to='/dashboard'>
+                            <Link to='/admin-dashboard'>
                                 <li className='py-[10px]  hover:bg-[rgb(173,173,175)]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><MdDashboard size={20} /></span><span>Dashboard</span></div> </li>
                             </Link>
                             <Link to='/work'>
@@ -83,13 +84,16 @@ const Menu = ({ children }) => {
                             <Link to='/project'>
                             <li className='py-[10px]  hover:bg-[#adadaf]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><FaProjectDiagram size={20} /></span><span>Projects</span></div> </li>
                             </Link>
-                            <Link to='/tickets'>
+                            <Link to='/admin-tickets'>
                             <li className='py-[10px]  hover:bg-[#adadaf]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><ImTicket size={20} /></span><span>Tickets</span></div> </li>
                             </Link>
-                            <Link to='/leave-application'>
+                            <Link to='/user'>
+                            <li className='py-[10px]  hover:bg-[#adadaf]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><BsFillPersonPlusFill size={20} /></span><span>User</span></div> </li>
+                            </Link>
+                            <Link to='/admin-leave-application'>
                             <li className='py-[10px]  hover:bg-[#adadaf]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><MdSick size={20} /></span><span>Leave application</span></div> </li>
                             </Link>
-                            <Link to='/'>
+                            <Link to='/admin-login'>
                             <li onClick={logout} className='py-[10px]  hover:bg-[#adadaf]'><div className='flex items-center pl-[20px]'> <span className='pr-[10px] '><IoLogOutSharp size={20} /></span><span>Logout</span></div> </li>
                             </Link>
                         </ul>
@@ -114,4 +118,4 @@ const Menu = ({ children }) => {
     )
 }
 
-export default Menu
+export default Admin_menu

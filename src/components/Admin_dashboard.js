@@ -20,188 +20,132 @@ import abstract_img_2 from "./../assets/abstract_background_2.webp"
 import total_time_icon from "./../assets/total_time.png"
 import remaining_time from "./../assets/remain.png"
 import productive_time from "./../assets/productive.png"
-import axios from 'axios'
-import { API } from './Constant'
+import Admin_menu from './Admin_menu'
 
 
 
 
-const Dashboard = () => {
+const Admin_dashboard = () => {
+ 
+    const [timeIn, setTimeIn]= useState("");
+    const [morningIn, setMorningIn]= useState("");
+    const [lunchIn, setLunchIn]= useState("");
+    const [eveningIn, setEveningIn]= useState("");
+    const [otherIn, setOtherIn]= useState("");
+    const [totalTime, setTotalTime]= useState("");
+    const [showButton, setShowButton]= useState(false);
+    const [button_off, setButtonOff]= useState("");
 
-    const [timeIn, setTimeIn] = useState("");
-    const [timeOut, setTimeOut] = useState("");
-    const [morningIn, setMorningIn] = useState("");
-    const [morningOut, setMorningOut] = useState("");
-    const [m_break, set_m_break] = useState("");
-    const [lunchIn, setLunchIn] = useState("");
-    const [lunchOut, setLunchOut] = useState("");
-    const [l_break, set_l_break] = useState("");
-    const [eveningIn, setEveningIn] = useState("");
-    const [eveningOut, setEveningOut] = useState("");
-    const [e_break, set_e_break] = useState("");
-    const [otherIn, setOtherIn] = useState("");
-    const [otherOut, setOtherOut] = useState("");
-    const [o_break, set_o_break] = useState("");
-    const [totalTime, setTotalTime] = useState("");
-    const [showButton, setShowButton] = useState();
-    const [button_off, setButtonOff] = useState("");
 
-    console.log(timeIn)
-    console.log(timeOut)
 
-  ////post attendance
-  const handleTimein=(e)=> {
+   const getTimeIn =(data) =>{
+    const actualTime= new Date()
+    // console.log(actualTime)
+    const settingHours=(actualTime.getHours())
+    const settingMinutes=(actualTime.getMinutes())
+    const settingSeconds=(actualTime.getSeconds())
+
+    const showTime= `${settingHours}:${settingMinutes}:${settingSeconds}`
+    setTimeIn(showTime)
+
+    gettotalTime()
     
-    axios.post(`${API}/attendance`, {
-        time_in: timeIn,
-    }, {
-            headers: {
-                "Content-Type": "application/json",
-                "token": localStorage.getItem("token")
-            }
-        }).then((res) => {
-            console.log(res)
-            // alert("data saved")
-            // window.location.reload();
-        }).catch((err) => {
-            console.log(err)
-        })
-}
+   } 
+
+   const getMorning =(data) =>{
+    const actualTime= new Date()
+    // console.log(actualTime)
+    const settingHours=(actualTime.getHours())
+    const settingMinutes=(actualTime.getMinutes())
+    const settingSeconds=(actualTime.getSeconds())
+
+    const showTime= `${settingHours}:${settingMinutes}:${settingSeconds}`
+    setMorningIn(showTime)
+   }
+
+   const getLunch =(data) =>{
+    const actualTime= new Date()
+    // console.log(actualTime)
+    const settingHours=(actualTime.getHours())
+    const settingMinutes=(actualTime.getMinutes())
+    const settingSeconds=(actualTime.getSeconds())
+
+    const showTime= `${settingHours}:${settingMinutes}:${settingSeconds}`
+    setLunchIn(showTime)
+   }
+
+   const getEvening =(data) =>{
+    const actualTime= new Date()
+    // console.log(actualTime)
+    const settingHours=(actualTime.getHours())
+    const settingMinutes=(actualTime.getMinutes())
+    const settingSeconds=(actualTime.getSeconds())
+
+    const showTime= `${settingHours}:${settingMinutes}:${settingSeconds}`
+    setEveningIn(showTime)
+   }
+
+   const getOther =(data) =>{
+    const actualTime= new Date()
+    // console.log(actualTime)
+    const settingHours=(actualTime.getHours())
+    const settingMinutes=(actualTime.getMinutes())
+    const settingSeconds=(actualTime.getSeconds())
+
+    const showTime= `${settingHours}:${settingMinutes}:${settingSeconds}`
+    setOtherIn(showTime)
+   }
+
+   //function to add hours
+ function addHours(time, hour){
+    time.setTime(time.getTime() + hour*60*60*1000);
+    return time;
+ }
+//  const result= addHours(new Date(), 4);
+//  console.log(result.getHours());
+//  console.log(result.getMinutes());
+//  console.log(result.getSeconds());
+
+ const gettotalTime =()=>{
+    const result= addHours(new Date(), 9);
+    const hour=(result.getHours());
+    const minutes=(result.getMinutes());
+    const seconds=(result.getSeconds());
+
+    const showTotalTime= `${hour}:${minutes}:${seconds}`
+    setTotalTime(showTotalTime);
+   
+    //console.log(showTotalTime);
+ }
 
 
-    const getTimeIn = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        console.log(showTime)
-        setTimeIn(showTime)
-        gettotalTime()
-        return showTime
-    }
-    useEffect(()=>{
-        getTimeIn()
-    },[])
-
-
-    const getTimeOut = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        setTimeOut(showTime)
-
-        gettotalTime()
-        
-    }
-
-    const getMorning = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        setMorningIn(showTime)
-    }
-
-    const getLunch = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        setLunchIn(showTime)
-    }
-
-    const getEvening = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        setEveningIn(showTime)
-    }
-
-    const getOther = (data) => {
-        const actualTime = new Date()
-        // console.log(actualTime)
-        const settingHours = (actualTime.getHours())
-        const settingMinutes = (actualTime.getMinutes())
-        const settingSeconds = (actualTime.getSeconds())
-
-        const showTime = `${settingHours}:${settingMinutes}:${settingSeconds}`
-        setOtherIn(showTime)
-    }
-
-    //function to add hours
-    function addHours(time, hour) {
-        time.setTime(time.getTime() + hour * 60 * 60 * 1000);
-        return time;
-    }
-    //  const result= addHours(new Date(), 4);
-    //  console.log(result.getHours());
-    //  console.log(result.getMinutes());
-    //  console.log(result.getSeconds());
-
-    const gettotalTime = () => {
-        const result = addHours(new Date(), 9);
-        const hour = (result.getHours());
-        const minutes = (result.getMinutes());
-        const seconds = (result.getSeconds());
-
-        const showTotalTime = `${hour}:${minutes}:${seconds}`
-        setTotalTime(showTotalTime);
-
-        //console.log(showTotalTime);
-    }
-
-
-    //function to handle time difference
-    function timeDifference(start, end) {
-        const startDate = new Date(`1970-01-01T${start}`);
-        const endDate = new Date(`1970-01-01T${end}`);
-        const diff = endDate.getTime() - startDate.getTime();
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-    }
-    // console.log(timeDifference(`${timeIn}`, `${totalTime}`));
-
-  
-
+//function to handle time difference
+function timeDifference(start, end) {
+    const startDate = new Date(`1970-01-01T${start}`);
+    const endDate = new Date(`1970-01-01T${end}`);
+    const diff = endDate.getTime() - startDate.getTime();
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  }
+  console.log(timeDifference(`${timeIn}`, `${totalTime}`));
     return (
-        <div  >
-            <Menu>
+        <div>
+            <Admin_menu>
                 <div>
                     <div className='w-full pt-[10px] flex justify-around flex-wrap '>
                         <div className='w-[200px] mt-[10px] p-[6px] rounded-md border' style={{ backgroundImage: `url(${card_image})`, objectFit: 'fit' }}>
                             <div className='flex justify-center'><img className='w-[50px]' src={card1_icon} alt="" /></div>
                             <div className='flex justify-center font-semibold text-white'>Mark attendace</div>
-
                             {showButton ? (
 
-                                 <div className='flex justify-center font-semibold text-white  my-[10px] '><button className='border w-[100px] hover:bg-[#ffffff] hover:text-[#03be79]' >Time out</button></div> 
+                                <div className='flex justify-center font-semibold text-white  my-[10px] '><button className='border w-[100px] hover:bg-[#ffffff] hover:text-[#03be79]' onClick={() => { getTimeIn(); }}>Time out</button></div>
                             ) : (
+                                <div className='flex justify-center font-semibold text-white  my-[10px] '><button className='border w-[100px] hover:bg-[#ffffff] hover:text-[#03be79]' onClick={() => { getTimeIn(); setShowButton(true) }}>Time in</button></div>
 
-
-                                <div className='flex justify-center font-semibold text-white  my-[10px] '><button className='border w-[100px] hover:bg-[#ffffff] hover:text-[#03be79]' onClick={() => {setShowButton(true);getTimeIn()}} >Time in</button></div>
                             )}
-
-
-                            <div className='flex justify-center' ><span className='text-white' onClick={handleTimein(timeIn)}>{timeIn}</span></div>
+                            <div className='flex justify-center'><span className='text-white'>{timeIn}</span></div>
                         </div>
                         <div className='bg-[#f56954] w-[200px] mt-[10px] p-[6px] rounded-md border bg-center' style={{ backgroundImage: `url(${card2_image})`, }}>
                             <div className='flex justify-center'><img className='w-[50px]' src={card2_icon} alt="" /></div>
@@ -316,13 +260,10 @@ const Dashboard = () => {
                     </div>
 
                 </div>
-
-            </Menu>
-
-
+            </Admin_menu>
 
         </div>
     )
 }
 
-export default Dashboard
+export default Admin_dashboard

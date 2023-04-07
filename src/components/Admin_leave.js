@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Menu from './Menu'
 import axios from 'axios'
 import { API } from './Constant'
+import Admin_menu from './Admin_menu'
 
-const Leave_app = () => {
+const Admin_leave = () => {
   const [userDetails, setUserDetails]=useState("")
   const [emp_name, setemp_name]=useState("")
   const [dept, setdept]=useState("")
@@ -32,25 +33,24 @@ const Leave_app = () => {
     }).then((res)=>{
       console.log(res)
       alert("Your leave has been applied successfully")
-   window.location.reload();
-
     }).catch((err)=>{
       console.log(err)
     })
   }
 
  const getUserDetails= (e) =>{
-  axios.get(`${API}/leave-form/real-user-token`,{
+  axios.get(`${API}/leave-form/user-token`,{
     headers:{
       "Content-Type":"application/json",
       "token": localStorage.getItem("token")
 
     }
   }).then((res)=>{
-    console.log(res.data)
+    console.log(res.data.data.name)
     setemp_name(res.data.data.name)
-    setdept(res.data.data.department)
-    setm_name(res.data.data.manager)
+    setdept(res.data.data.role)
+    setm_name(res.data.data.role)
+   
   }).catch((err)=>{
     console.log(err)
   })
@@ -66,7 +66,7 @@ const Leave_app = () => {
 
   return (
     <div>   
-      <Menu>
+      <Admin_menu>
         <div className='mt-[10px] border py-[20px] px-[10px]'>
           <div className='flex justify-center font-bold text-[25px] text-[#262A2E]'>Leave application form</div>
           <div className=' mt-[20px] border p-[20px]'>
@@ -123,10 +123,10 @@ const Leave_app = () => {
 
           </div>
         </div>
-      </Menu>
+      </Admin_menu>
 
     </div>
   )
 }
 
-export default Leave_app
+export default Admin_leave
