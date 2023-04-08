@@ -1,0 +1,30 @@
+// start time and end time
+var startTime = moment('12:16:59 am', 'HH:mm:ss a');
+var endTime = moment('06:12:07 pm', 'HH:mm:ss a');
+
+// calculate total duration
+var duration = moment.duration(endTime.diff(startTime));
+
+// duration in hours
+var hours = parseInt(duration.asHours());
+
+// duration in minutes
+var minutes = parseInt(duration.asMinutes()) % 60;
+
+alert(hours + ' hour and ' + minutes + ' minutes.');
+
+
+
+
+               //code to find difference betwewen two time
+                                                // var startTime = moment(attendance.m_break_in, 'hh:mm:ss');
+                                                // var endTime = moment(attendance.m_break_out, 'hh:mm:ss');
+
+                                                // var hoursDiff = endTime.diff(startTime, 'hours');
+                                                // console.log('Hours:' + hoursDiff);
+
+                                                // var minutesDiff = endTime.diff(startTime, 'minutes');
+                                                // console.log('Minutes:' + minutesDiff);
+
+                                                // var secondsDiff = endTime.diff(startTime, 'seconds');
+                                                // console.log('Seconds:' + secondsDiff);
